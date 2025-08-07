@@ -31,7 +31,7 @@ public class PostWompiPcolStepdefinition {
         String wompiBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
                 .getProperty(wompiBaseUrlKey);
 
-        // Obtener acceptance_token
+
         String acceptanceToken = SerenityRest
                 .given()
                 .get("https://api-sandbox.co.uat.wompi.dev/v1/merchants/" + Constants.PUBLIC_KEY_WOMPI)

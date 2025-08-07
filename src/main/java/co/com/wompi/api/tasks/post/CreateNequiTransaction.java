@@ -10,7 +10,7 @@ import net.serenitybdd.screenplay.Tasks;
 public class CreateNequiTransaction implements Task {
     private final NequiTransactionRequest request;
     private final String baseUrl;
-    private final String bearerToken; // Ahora lo recibes aquí
+    private final String bearerToken;
 
     public CreateNequiTransaction(NequiTransactionRequest request, String baseUrl, String bearerToken) {
         this.request = request;

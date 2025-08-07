@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="0" failures="0" name="Create NEQUI transaction in Wompi" skipped="0" tests="1" time="1.57" timestamp="2025-08-07 01:40:52"><testcase name="Create a transaction in PENDING status with NEQUI method and valid amount"/></testsuite>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="0" failures="1" name="Create PCOL (Puntos Colombia) transaction in Wompi" skipped="0" tests="1" time="1.47" timestamp="2025-08-07 01:17:16"><testcase name="Create a transaction with PCOL method in APPROVED_ONLY_POINTS status"><failure message="&#13;&#10;Expected: &quot;APPROVED&quot;&#13;&#10;     but: was null" type="java.lang.AssertionError">&#13;
+Expected: "APPROVED"&#13;
+     but: was null</failure><system-err>&#13;
+Expected: "APPROVED"&#13;
+     but: was null&#13;
+co.com.wompi.api.stepdefinition.PostWompiPcolStepdefinition.theResponseStatusShouldBe(PostWompiPcolStepdefinition.java:65)&#13;
+✽.the response status should be "APPROVED"(file:///C:/Users/danie/IdeaProjects/wompi-automation/src/test/resources/features/postWompi/PostPuntosColombia.feature:9)&#13;
+</system-err></testcase></testsuite>

@@ -1,0 +1,2 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Create transaction with Puntos Colombia (PCOL) in Wompi","Fail to create a PCOL transaction when payment identity is not configured","SUCCESS","2025-08-07T13:40:50.7997674-05:00[America/Bogota]","0.0","1.5"

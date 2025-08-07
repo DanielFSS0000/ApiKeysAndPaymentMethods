@@ -1,0 +1,2 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Query merchant information with invalid key","Failed query of the merchant using an invalid public key","FAILURE","2025-08-07T12:50:19.9444822-05:00[America/Bogota]","0.0","5.19"

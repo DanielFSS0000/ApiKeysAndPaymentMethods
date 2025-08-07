@@ -1,0 +1,5 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Create transaction with Puntos Colombia (PCOL) in Wompi","Fail to create a PCOL transaction when payment identity is not configured","SUCCESS","2025-08-07T13:40:50.7997674-05:00[America/Bogota]","0.0","1.5"
+"Create NEQUI transaction in Wompi","Create a transaction in PENDING status with NEQUI method and valid amount","SUCCESS","2025-08-07T13:40:52.313479-05:00[America/Bogota]","0.0","1.57"
+"Create transaction with Bancolombia QR in Wompi","Create an approved transaction using Bancolombia QR method","SUCCESS","2025-08-07T13:40:53.8951789-05:00[America/Bogota]","0.0","1.4"
+"Create PCOL (Puntos Colombia) transaction in Wompi","Create a transaction with PCOL method in APPROVED_ONLY_POINTS status","FAILURE","2025-08-07T13:17:16.5532088-05:00[America/Bogota]","0.0","1.47"

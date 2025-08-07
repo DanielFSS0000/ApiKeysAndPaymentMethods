@@ -1,0 +1,4 @@
+"Story","Title","Result","Date","Stability","Duration (s)"
+"Query merchant information with invalid key","Failed query of the merchant using an invalid public key","SUCCESS","2025-08-07T13:40:45.7511669-05:00[America/Bogota]","0.0","4.1"
+"Consultar información del merchant en Wompi","Consulta exitosa del merchant usando la llave pública sandbox","SUCCESS","2025-08-07T00:54:31.3467415-05:00[America/Bogota]","0.0","3.93"
+"Query merchant information on Wompi","Successful query of the merchant using the sandbox public key","SUCCESS","2025-08-07T13:40:49.879741-05:00[America/Bogota]","0.0","0.91"

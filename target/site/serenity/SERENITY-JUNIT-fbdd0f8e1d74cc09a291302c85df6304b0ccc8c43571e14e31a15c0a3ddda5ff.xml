@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="0" failures="0" name="Create transaction with Puntos Colombia (PCOL) in Wompi" skipped="0" tests="1" time="1.5" timestamp="2025-08-07 01:40:50"><testcase name="Fail to create a PCOL transaction when payment identity is not configured"/></testsuite>

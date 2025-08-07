@@ -1,12 +1,16 @@
 #  Wompi API Automation
--Java (JDK 8+)
--Gradle
--Serenity BDD
--Cucumber
--RestAssured
--JUnit 5
-
 ¡Hola! Este proyecto contiene pruebas automatizadas para la API de Wompi, usando Java, Gradle, Serenity, RestAssured, y Cucumber.
+- Java (JDK 8+)
+
+- Gradle
+
+- Serenity BDD
+
+- Cucumber
+
+- RestAssured
+
+- JUnit 5
 
 ## ¿Qué hace este proyecto?
 - Consulta y prueba el endpoint de merchants de Wompi (GET).

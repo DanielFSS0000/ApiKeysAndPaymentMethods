@@ -3,7 +3,7 @@ package co.com.wompi.api.utils;
     public class Constants {
         private Constants(){}
 
-        public static final String ACTOR = "Alejandro";
+        public static final String ACTOR = "Daniel";
         public static final String BASE_URL = "restapi.default.baseurl.{env}";
         public static final String CALL_SERVICE =  "Call service: ";
         public static final String ENV_QA = "qa";

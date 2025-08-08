@@ -1,3 +1,6 @@
+#author: Daniel Sandoval
+#language: en
+
 Feature: Create NEQUI transaction in Wompi
 
   @Successful

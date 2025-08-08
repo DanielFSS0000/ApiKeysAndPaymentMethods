@@ -27,12 +27,12 @@ public class PostWompiBancolombiaQRStepdefinition {
 
     @When("the user creates a Bancolombia QR transaction in Wompi with PENDING status")
     public void userCreatesBancolombiaQRTransaction() {
-        // Get URL from environment
+
         String wompiBaseUrlKey = Constants.BASE_URL.replace(Constants.TYPE_ENVIRONMENT, "sandbox");
         String wompiBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
                 .getProperty(wompiBaseUrlKey);
 
-        // Get acceptance token
+
         String acceptanceToken = SerenityRest
                 .given()
                 .get(wompiBaseUrl + "merchants/" + Constants.PUBLIC_KEY_WOMPI)
@@ -63,21 +63,23 @@ public class PostWompiBancolombiaQRStepdefinition {
         );
     }
 
-    @Then("the response status should be {string}")
+    @Then("Then the QR response status should be {string}")
     public void theResponseStatusShouldBe(String status) {
         OnStage.theActorInTheSpotlight().should(
                 seeThat(
-                        actor -> SerenityRest.lastResponse().jsonPath().getString("data.status"),
+                        actor -> SerenityRest.lastResponse().jsonPath()
+                                .getString("data.status"),
                         equalTo(status)
                 )
         );
     }
 
-    @Then("the payment method should be {string}")
+    @Then("the payment method QR should be {string}")
     public void thePaymentMethodShouldBe(String method) {
         OnStage.theActorInTheSpotlight().should(
                 seeThat(
-                        actor -> SerenityRest.lastResponse().jsonPath().getString("data.payment_method.type"),
+                        actor -> SerenityRest.lastResponse().jsonPath()
+                                .getString("data.payment_method.type"),
                         equalTo(method)
                 )
         );

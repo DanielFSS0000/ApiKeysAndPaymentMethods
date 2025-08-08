@@ -15,7 +15,6 @@ import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.thucydides.core.util.EnvironmentVariables;
-
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -33,11 +32,9 @@ public class PostWompiNequiStepdefinition {
         String wompiBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
                 .getProperty(wompiBaseUrlKey);
 
-        String merchantUrl = wompiBaseUrl + "merchants/" + Constants.PUBLIC_KEY_WOMPI;
-
         String acceptanceToken = SerenityRest
                 .given()
-                .get(merchantUrl)
+                .get(wompiBaseUrl + "merchants/" + Constants.PUBLIC_KEY_WOMPI)
                 .jsonPath()
                 .getString("data.presigned_acceptance.acceptance_token");
 

@@ -40,7 +40,8 @@ public class GetMerchantStepdefinition {
     public void publicKeyFieldMustBe(String publicKey) {
         OnStage.theActorInTheSpotlight().should(
                 seeThat(
-                        actor -> SerenityRest.lastResponse().jsonPath().getString("data.public_key"),
+                        actor -> SerenityRest.lastResponse().jsonPath()
+                                .getString("data.public_key"),
                         equalTo(publicKey)
                 )
         );

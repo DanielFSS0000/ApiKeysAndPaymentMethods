@@ -34,7 +34,7 @@ public class PostWompiPcolStepdefinition {
 
         String acceptanceToken = SerenityRest
                 .given()
-                .get("https://api-sandbox.co.uat.wompi.dev/v1/merchants/" + Constants.PUBLIC_KEY_WOMPI)
+                .get(wompiBaseUrl + "merchants/" + Constants.PUBLIC_KEY_WOMPI)
                 .jsonPath()
                 .getString("data.presigned_acceptance.acceptance_token");
 

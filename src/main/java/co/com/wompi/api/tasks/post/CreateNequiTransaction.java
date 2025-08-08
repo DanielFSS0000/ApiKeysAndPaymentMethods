@@ -12,7 +12,8 @@ public class CreateNequiTransaction implements Task {
     private final String baseUrl;
     private final String bearerToken;
 
-    public CreateNequiTransaction(NequiTransactionRequest request, String baseUrl, String bearerToken) {
+    public CreateNequiTransaction(NequiTransactionRequest request,
+                                  String baseUrl, String bearerToken) {
         this.request = request;
         this.baseUrl = baseUrl;
         this.bearerToken = bearerToken;
@@ -28,7 +29,8 @@ public class CreateNequiTransaction implements Task {
         );
     }
 
-    public static CreateNequiTransaction with(NequiTransactionRequest request, String baseUrl, String bearerToken) {
+    public static CreateNequiTransaction with(NequiTransactionRequest request,
+                                              String baseUrl, String bearerToken) {
         return Tasks.instrumented(CreateNequiTransaction.class, request, baseUrl, bearerToken);
     }
 }

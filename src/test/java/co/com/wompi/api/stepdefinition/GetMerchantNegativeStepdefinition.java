@@ -38,7 +38,8 @@ public class GetMerchantNegativeStepdefinition {
     public void theErrorMessageShouldBe(String errorMessage) {
         OnStage.theActorInTheSpotlight().should(
                 seeThat(
-                        actor -> SerenityRest.lastResponse().jsonPath().getString("error.messages.public_key[0]"),
+                        actor -> SerenityRest.lastResponse().jsonPath()
+                                .getString("error.messages.public_key[0]"),
                         equalTo(errorMessage)
                 )
         );

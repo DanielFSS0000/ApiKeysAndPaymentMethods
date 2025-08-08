@@ -13,7 +13,8 @@ public class PostPcolPaymentMethod implements Task {
     private final String baseUrl;
     private final String bearerToken;
 
-    public PostPcolPaymentMethod(PcolTransactionRequest request, String baseUrl, String bearerToken) {
+    public PostPcolPaymentMethod(PcolTransactionRequest request,
+                                 String baseUrl, String bearerToken) {
         this.request = request;
         this.baseUrl = baseUrl;
         this.bearerToken = bearerToken;
@@ -29,7 +30,8 @@ public class PostPcolPaymentMethod implements Task {
         );
     }
 
-    public static PostPcolPaymentMethod with(PcolTransactionRequest request, String baseUrl, String bearerToken) {
+    public static PostPcolPaymentMethod with(PcolTransactionRequest request,
+                                             String baseUrl, String bearerToken) {
         return Tasks.instrumented(PostPcolPaymentMethod.class, request, baseUrl, bearerToken);
     }
 }

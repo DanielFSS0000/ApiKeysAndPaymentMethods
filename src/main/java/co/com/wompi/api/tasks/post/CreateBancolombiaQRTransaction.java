@@ -12,7 +12,8 @@ public class CreateBancolombiaQRTransaction implements Task {
     private final String baseUrl;
     private final String privateKey;
 
-    public CreateBancolombiaQRTransaction(BancolombiaQRTransactionRequest request, String baseUrl, String privateKey) {
+    public CreateBancolombiaQRTransaction(BancolombiaQRTransactionRequest request,
+                                          String baseUrl, String privateKey) {
         this.request = request;
         this.baseUrl = baseUrl;
         this.privateKey = privateKey;
@@ -26,7 +27,8 @@ public class CreateBancolombiaQRTransaction implements Task {
         );
     }
 
-    public static CreateBancolombiaQRTransaction with(BancolombiaQRTransactionRequest request, String baseUrl, String privateKey) {
+    public static CreateBancolombiaQRTransaction with(BancolombiaQRTransactionRequest request,
+                                                      String baseUrl, String privateKey) {
         return Tasks.instrumented(CreateBancolombiaQRTransaction.class, request, baseUrl, privateKey);
     }
 }

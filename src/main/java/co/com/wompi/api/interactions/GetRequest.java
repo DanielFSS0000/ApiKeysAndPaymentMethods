@@ -37,7 +37,7 @@ public class GetRequest implements Interaction {
         actor.attemptsTo(
                 //Get.resource para manejar el recurso o petición que se envia la uri
                 Get.resource(request)
-                        //Exprecion anscre, permite mandar el tipo de contenido y protocolo
+
                         .with(requestSpecification -> requestSpecification
                                 .accept(typeContent)
                                 .relaxedHTTPSValidation()

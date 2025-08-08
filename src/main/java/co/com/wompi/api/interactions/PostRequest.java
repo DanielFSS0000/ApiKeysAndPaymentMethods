@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 public class PostRequest implements Interaction {
     private static final Logger log = LoggerFactory.getLogger(PostRequest.class);
 
-    private final String baseUrl; // [NEW] Para manejar la base de la URL
-    private final String endpoint; // Ej: "transactions"
+    private final String baseUrl;
+    private final String endpoint;
     private final String body;
     private final String bearerToken;
 
@@ -31,7 +31,7 @@ public class PostRequest implements Interaction {
     @Override
     @Subject("{0} consume el servicio POST {#endpoint}")
     public <T extends Actor> void performAs(T actor) {
-        log.info("POST to {}/{} with body: {}", baseUrl, endpoint, body);
+        log.info("POST to {}{} with body: {}", baseUrl, endpoint, body);
         actor.whoCan(CallAnApi.at(baseUrl));
         actor.attemptsTo(
                 Post.to(endpoint)

@@ -49,11 +49,11 @@ public class PostWompiPseStepdefinition {
 
         req.payment_method = new PseTransactionRequest.PaymentMethod();
         req.payment_method.type = "PSE";
-        req.payment_method.user_type = 0;               // 0: Natural
-        req.payment_method.user_legal_id_type = "CC";   // CC o NIT
+        req.payment_method.user_type = 0;
+        req.payment_method.user_legal_id_type = "CC";
         req.payment_method.user_legal_id = "1999888777";
-        req.payment_method.financial_institution_code = "1";  // 1 = APROBADA (sandbox)
-        req.payment_method.payment_description = "Pago Tienda Wompi"; // <= 30 chars
+        req.payment_method.financial_institution_code = "1";
+        req.payment_method.payment_description = "Pago Tienda Wompi";
 
 
         req.signature = SignatureUtils.calcularFirmaIntegridad(

@@ -1,7 +1,7 @@
 package co.com.wompi.api.stepdefinition;
 
 import co.com.wompi.api.models.BancolombiaQRTransactionRequest;
-import co.com.wompi.api.tasks.post.CreateBancolombiaQRTransaction;
+import co.com.wompi.api.tasks.post.CreateTransaction;
 import co.com.wompi.api.utils.Constants;
 import co.com.wompi.api.utils.ReferenceGenerator;
 import co.com.wompi.api.utils.SignatureUtils;
@@ -25,13 +25,12 @@ public class PostWompiBancolombiaQRStepdefinition {
         OnStage.setTheStage(new OnlineCast());
     }
 
-    @When("the user creates a Bancolombia QR transaction in Wompi with PENDING status")
+    @When("the user creates a Bancolombia QR transaction in Wompi")
     public void userCreatesBancolombiaQRTransaction() {
 
         String wompiBaseUrlKey = Constants.BASE_URL.replace(Constants.TYPE_ENVIRONMENT, "sandbox");
         String wompiBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
                 .getProperty(wompiBaseUrlKey);
-
 
         String acceptanceToken = SerenityRest
                 .given()
@@ -39,7 +38,6 @@ public class PostWompiBancolombiaQRStepdefinition {
                 .jsonPath()
                 .getString("data.presigned_acceptance.acceptance_token");
 
-        // Build request
         BancolombiaQRTransactionRequest req = new BancolombiaQRTransactionRequest();
         req.amount_in_cents = 1000000;
         req.currency = "COP";
@@ -59,17 +57,50 @@ public class PostWompiBancolombiaQRStepdefinition {
         );
 
         OnStage.theActorCalled(Constants.ACTOR).attemptsTo(
-                CreateBancolombiaQRTransaction.with(req, wompiBaseUrl, Constants.PRIVATE_KEY_WOMPI)
+                CreateTransaction.with(req, wompiBaseUrl, "transactions", Constants.PRIVATE_KEY_WOMPI)
         );
     }
 
-    @Then("Then the QR response status should be {string}")
+    @Then("the QR response status should be {string}")
     public void theResponseStatusShouldBe(String status) {
         OnStage.theActorInTheSpotlight().should(
                 seeThat(
                         actor -> SerenityRest.lastResponse().jsonPath()
                                 .getString("data.status"),
                         equalTo(status)
+                )
+        );
+    }
+
+    @Then("after checking the transaction by ID, the status should be {string}")
+    public void theTransactionStatusShouldBe(String expectedStatus) throws InterruptedException {
+
+        String transactionId = SerenityRest.lastResponse().jsonPath().getString("data.id");
+
+        Thread.sleep(1000);
+
+        String wompiBaseUrlKey = Constants.BASE_URL.replace(Constants.TYPE_ENVIRONMENT, "sandbox");
+        String wompiBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
+                .getProperty(wompiBaseUrlKey);
+
+        SerenityRest
+                .given()
+                .header("Authorization", "Bearer " + Constants.PRIVATE_KEY_WOMPI)
+                .get(wompiBaseUrl + "transactions/" + transactionId)
+                .then()
+                .statusCode(200);
+
+        String sandboxId = SerenityRest.lastResponse().jsonPath().getString("data.id");
+        String sandboxStatus = SerenityRest.lastResponse().jsonPath()
+                .getString("data.payment_method.sandbox_status");
+
+        System.out.println("BancolombiaQR ID Transaction: " + sandboxId);
+        System.out.println("BancolombiaQR Status: " + sandboxStatus);
+
+        OnStage.theActorInTheSpotlight().should(
+                seeThat(
+                        actor -> SerenityRest.lastResponse().jsonPath().getString("data.status"),
+                        equalTo(expectedStatus)
                 )
         );
     }

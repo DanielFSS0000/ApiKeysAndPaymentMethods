@@ -1,14 +1,32 @@
-.gradle
+# ------------------------------------
+# Gradle
+# ------------------------------------
+.gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+# Cache de Gradle
+.gradle-cache/
+.gradle/
+
+# ------------------------------------
+# Serenity BDD Reports
+# ------------------------------------
+target/
+site/
+serenity/
+.serenity/
+**/target/site/serenity/
+**/build/reports/tests/
+**/build/site/serenity/
+**/build/reports/serenity/
+
+# ------------------------------------
+# IntelliJ IDEA
+# ------------------------------------
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -16,7 +34,14 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
-### Eclipse ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+
+# ------------------------------------
+# Eclipse
+# ------------------------------------
 .apt_generated
 .classpath
 .factorypath
@@ -28,15 +53,21 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-### NetBeans ###
+# ------------------------------------
+# NetBeans
+# ------------------------------------
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
+# ------------------------------------
+# VS Code
+# ------------------------------------
 .vscode/
 
-### Mac OS ###
+# ------------------------------------
+# MacOS
+# ------------------------------------
 .DS_Store

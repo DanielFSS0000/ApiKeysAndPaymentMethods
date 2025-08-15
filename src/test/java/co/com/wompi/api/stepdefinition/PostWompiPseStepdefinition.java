@@ -1,7 +1,7 @@
 package co.com.wompi.api.stepdefinition;
 
 import co.com.wompi.api.models.PseTransactionRequest;
-import co.com.wompi.api.tasks.post.CreatePseTransaction;
+import co.com.wompi.api.tasks.post.CreateTransaction;
 import co.com.wompi.api.utils.Constants;
 import co.com.wompi.api.utils.ReferenceGenerator;
 import co.com.wompi.api.utils.SignatureUtils;
@@ -61,23 +61,54 @@ public class PostWompiPseStepdefinition {
         );
 
         OnStage.theActorCalled(Constants.ACTOR).attemptsTo(
-                CreatePseTransaction.with(req, wompiBaseUrl, Constants.PRIVATE_KEY_WOMPI)
+                CreateTransaction.with(req, wompiBaseUrl, "transactions", Constants.PRIVATE_KEY_WOMPI)
         );
     }
 
     @Then("the PSE response status should be {string}")
-    public void theResponseStatusShouldBePending(String expectedReason) {
+    public void theResponseStatusShouldBePending(String expectedStatus) {
         String actualReason = SerenityRest.lastResponse().jsonPath().getString("data.status");
-        assertThat(actualReason, equalTo(expectedReason));
+        assertThat(actualReason, equalTo(expectedStatus));
     }
 
-    @Then("the payment method should be {string}")
-    public void thePaymentMethodShouldBePSE(String expectedReason) {
+    @Then("the user waits a few minutes to validate the {string} status")
+    public void theTransactionPseIsDeclined(String expectedStatus) throws InterruptedException {
+        String transactionId = SerenityRest.lastResponse().jsonPath().getString("data.id");
+
+        Thread.sleep(4000);
+
+        String wompiBaseUrlKey = Constants.BASE_URL.replace(Constants.TYPE_ENVIRONMENT, "sandbox");
+        String wompiBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
+                .getProperty(wompiBaseUrlKey);
+
+        SerenityRest
+                .given()
+                .header("Authorization", "Bearer " + Constants.PRIVATE_KEY_WOMPI)
+                .get(wompiBaseUrl + "transactions/" + transactionId)
+                .then()
+                .statusCode(200);
+
+        System.out.println("=== ESTADO DE LA TRANSACCIÓN PSE ===");
+        String sandboxId = SerenityRest.lastResponse().jsonPath().getString("data.id");
+        String sandboxStatus = SerenityRest.lastResponse().jsonPath().getString("data.status");
+        System.out.println("PSE Id Transaction: " + sandboxId);
+        System.out.println("PSE Status: " + sandboxStatus);
+
+        OnStage.theActorInTheSpotlight().should(
+                seeThat(
+                        actor -> SerenityRest.lastResponse().jsonPath().getString("data.status"),
+                        equalTo(expectedStatus)
+                )
+        );
+    }
+
+    @Then("the payment method used is {string}")
+    public void thePaymentMethodShouldBePSE(String expectedMethod) {
         OnStage.theActorInTheSpotlight().should(
                 seeThat(
                         actor -> SerenityRest.lastResponse().jsonPath()
                                 .getString("data.payment_method.type"),
-                        equalTo("PSE")
+                        equalTo(expectedMethod)
                 )
         );
     }

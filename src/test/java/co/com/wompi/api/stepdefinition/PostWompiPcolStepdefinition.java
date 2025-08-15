@@ -1,7 +1,7 @@
 package co.com.wompi.api.stepdefinition;
 
 import co.com.wompi.api.models.PcolTransactionRequest;
-import co.com.wompi.api.tasks.post.PostPcolPaymentMethod;
+import co.com.wompi.api.tasks.post.CreateTransaction;
 import co.com.wompi.api.utils.Constants;
 import co.com.wompi.api.utils.ReferenceGenerator;
 import co.com.wompi.api.utils.SignatureUtils;
@@ -31,14 +31,12 @@ public class PostWompiPcolStepdefinition {
         String wompiBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
                 .getProperty(wompiBaseUrlKey);
 
-
         String acceptanceToken = SerenityRest
                 .given()
                 .get(wompiBaseUrl + "merchants/" + Constants.PUBLIC_KEY_WOMPI)
                 .jsonPath()
                 .getString("data.presigned_acceptance.acceptance_token");
 
-        // Preparar el request
         PcolTransactionRequest req = new PcolTransactionRequest();
         req.amount_in_cents = 1000000;
         req.currency = "COP";
@@ -56,7 +54,7 @@ public class PostWompiPcolStepdefinition {
         );
 
         OnStage.theActorCalled(Constants.ACTOR).attemptsTo(
-                PostPcolPaymentMethod.with(req, wompiBaseUrl, Constants.PRIVATE_KEY_WOMPI)
+                CreateTransaction.with(req, wompiBaseUrl, "transactions", Constants.PRIVATE_KEY_WOMPI)
         );
     }
 

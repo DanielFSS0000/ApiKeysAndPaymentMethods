@@ -49,4 +49,3 @@ public class GetRequest implements Interaction {
         return Tasks.instrumented(GetRequest.class, baseUrl, request, typeContent);
     }
 }
-

@@ -26,6 +26,7 @@ public class PostRequest implements Interaction {
         System.out.println("[Debug] BASE_URL usada: " + baseUrl);
         System.out.println("[Debug] ENDPOINT usado: " + endpoint);
         System.out.println("[Debug] JSON BODY: " + body);
+
     }
 
     @Override

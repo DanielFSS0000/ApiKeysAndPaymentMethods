@@ -77,7 +77,7 @@ public class PostWompiBancolombiaQRStepdefinition {
 
         String transactionId = SerenityRest.lastResponse().jsonPath().getString("data.id");
 
-        Thread.sleep(1000);
+        Thread.sleep(2000);
 
         String wompiBaseUrlKey = Constants.BASE_URL.replace(Constants.TYPE_ENVIRONMENT, "sandbox");
         String wompiBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)

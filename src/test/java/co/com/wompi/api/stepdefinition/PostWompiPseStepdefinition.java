@@ -75,7 +75,7 @@ public class PostWompiPseStepdefinition {
     public void theTransactionPseIsDeclined(String expectedStatus) throws InterruptedException {
         String transactionId = SerenityRest.lastResponse().jsonPath().getString("data.id");
 
-        Thread.sleep(4000);
+        Thread.sleep(6000);
 
         String wompiBaseUrlKey = Constants.BASE_URL.replace(Constants.TYPE_ENVIRONMENT, "sandbox");
         String wompiBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)

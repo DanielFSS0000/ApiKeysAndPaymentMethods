@@ -4,7 +4,7 @@
 Feature: Create PSE transaction in Wompi
 
   @Successful
-  Scenario: Create a PSE transaction Pending path using bank code "1"
+  Scenario: Create a PSE transaction Declined using bank code "2"
     When the user creates a PSE transaction in Wompi with approving bank
     Then the PSE response status should be "PENDING"
     Then the user waits a few minutes to validate the "DECLINED" status

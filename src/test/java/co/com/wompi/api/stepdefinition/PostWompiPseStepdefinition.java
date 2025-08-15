@@ -52,7 +52,7 @@ public class PostWompiPseStepdefinition {
         req.payment_method.user_type = 0;
         req.payment_method.user_legal_id_type = "CC";
         req.payment_method.user_legal_id = "1999888777";
-        req.payment_method.financial_institution_code = "1";
+        req.payment_method.financial_institution_code = "2";
         req.payment_method.payment_description = "Pago Tienda Wompi";
 
 

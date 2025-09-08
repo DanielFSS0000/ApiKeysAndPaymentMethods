@@ -3,10 +3,7 @@ package co.com.wompi.api.stepdefinition;
 
 import co.com.wompi.api.models.NequiTransactionRequest;
 import co.com.wompi.api.tasks.post.CreateTransaction;
-import co.com.wompi.api.utils.AcceptanceTokenFetcher;
-import co.com.wompi.api.utils.Constants;
-import co.com.wompi.api.utils.ReferenceGenerator;
-import co.com.wompi.api.utils.SignatureUtils;
+import co.com.wompi.api.utils.*;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -34,26 +31,16 @@ public class PostWompiNequiStepdefinition {
 
         String token = AcceptanceTokenFetcher.fetch(environmentVariables);
 
-        NequiTransactionRequest req = new NequiTransactionRequest();
-        req.amount_in_cents = 1000000;
-        req.currency = "COP";
-        req.customer_email = "pruebasensandbox@yopmail.com";
-        req.reference = "pedido-nequi-123456";
-        req.acceptance_token = token;
-        req.payment_method = new NequiTransactionRequest.PaymentMethod();
-        req.payment_method.phone_number = "3991111111";
-
-        req.signature = SignatureUtils.calcularFirmaIntegridad(
-                req.reference = ReferenceGenerator.randomNequiReference(),
-                req.amount_in_cents,
-                req.currency,
-                Constants.INTEGRITY_KEY_WOMPI
+        NequiTransactionRequest req = TransactionRequestBuilder.nequi(
+                token,
+                "pruebassandboxdaniel@yopmail.com",
+                "3991111111",
+                1000000,
+                "COP"
         );
 
         System.out.println("[Debug] Cadena para firmar: " + req.reference + req.amount_in_cents + req.currency +
                 Constants.INTEGRITY_KEY_WOMPI);
-
-        System.out.println("[Debug] Firma generada: " + req.signature);
 
         OnStage.theActorCalled(Constants.ACTOR).attemptsTo(
                 CreateTransaction.with(req, wompiBaseUrl, "transactions", Constants.PRIVATE_KEY_WOMPI)
@@ -75,7 +62,7 @@ public class PostWompiNequiStepdefinition {
     public void theTransactionIsApproved(String expectedStatus) throws InterruptedException {
         String transactionId = SerenityRest.lastResponse().jsonPath().getString("data.id");
 
-        Thread.sleep(6000);
+        Thread.sleep(7000);
         String wompiBaseUrlKey = Constants.BASE_URL.replace(Constants.TYPE_ENVIRONMENT, "sandbox");
         String wompiBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
                 .getProperty(wompiBaseUrlKey);

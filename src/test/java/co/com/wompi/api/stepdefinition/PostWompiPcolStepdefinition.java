@@ -2,10 +2,7 @@ package co.com.wompi.api.stepdefinition;
 
 import co.com.wompi.api.models.PcolTransactionRequest;
 import co.com.wompi.api.tasks.post.CreateTransaction;
-import co.com.wompi.api.utils.AcceptanceTokenFetcher;
-import co.com.wompi.api.utils.Constants;
-import co.com.wompi.api.utils.ReferenceGenerator;
-import co.com.wompi.api.utils.SignatureUtils;
+import co.com.wompi.api.utils.*;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -34,20 +31,12 @@ public class PostWompiPcolStepdefinition {
 
         String token = AcceptanceTokenFetcher.fetch(environmentVariables);
 
-        PcolTransactionRequest req = new PcolTransactionRequest();
-        req.amount_in_cents = 1000000;
-        req.currency = "COP";
-        req.customer_email = "pruebasensandbox@yopmail.com";
-        req.reference = ReferenceGenerator.randomNequiReference();
-        req.acceptance_token = token;
-        req.payment_method = new PcolTransactionRequest.PaymentMethod();
-        req.payment_method.sandbox_status = "APPROVED_ONLY_POINTS";
-
-        req.signature = SignatureUtils.calcularFirmaIntegridad(
-                req.reference,
-                req.amount_in_cents,
-                req.currency,
-                Constants.INTEGRITY_KEY_WOMPI
+        PcolTransactionRequest req = TransactionRequestBuilder.pcol(
+                token,
+                "pruebassandboxdaniel@yopmail.com",
+                "APPROVED_ONLY_POINTS",
+                1000000,
+                "COP"
         );
 
         OnStage.theActorCalled(Constants.ACTOR).attemptsTo(

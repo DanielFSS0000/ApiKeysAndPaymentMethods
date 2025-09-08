@@ -2,10 +2,7 @@ package co.com.wompi.api.stepdefinition;
 
 import co.com.wompi.api.models.PseTransactionRequest;
 import co.com.wompi.api.tasks.post.CreateTransaction;
-import co.com.wompi.api.utils.AcceptanceTokenFetcher;
-import co.com.wompi.api.utils.Constants;
-import co.com.wompi.api.utils.ReferenceGenerator;
-import co.com.wompi.api.utils.SignatureUtils;
+import co.com.wompi.api.utils.*;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -37,24 +34,16 @@ public class PostWompiPseStepdefinition {
 
         String token = AcceptanceTokenFetcher.fetch(environmentVariables);
 
-        PseTransactionRequest req = new PseTransactionRequest();
-        req.amount_in_cents = 1000000;
-        req.currency = "COP";
-        req.customer_email = "pruebasensandbox@yopmail.com";
-        req.reference = ReferenceGenerator.randomNequiReference();
-        req.acceptance_token = token;
-
-        req.payment_method = new PseTransactionRequest.PaymentMethod();
-        req.payment_method.type = "PSE";
-        req.payment_method.user_type = 0;
-        req.payment_method.user_legal_id_type = "CC";
-        req.payment_method.user_legal_id = "1999888777";
-        req.payment_method.financial_institution_code = "2";
-        req.payment_method.payment_description = "Pago Tienda Wompi";
-
-
-        req.signature = SignatureUtils.calcularFirmaIntegridad(
-                req.reference, req.amount_in_cents, req.currency, Constants.INTEGRITY_KEY_WOMPI
+        PseTransactionRequest req = TransactionRequestBuilder.pse(
+                token,
+                "pruebassandboxdaniel@yopmail.com",
+                1000000,
+                "COP",
+                0,
+                "CC",
+                "1999888777",
+                "2",
+                "Pago Tienda Wompi"
         );
 
         OnStage.theActorCalled(Constants.ACTOR).attemptsTo(

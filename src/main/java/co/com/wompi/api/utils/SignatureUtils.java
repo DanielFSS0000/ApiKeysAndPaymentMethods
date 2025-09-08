@@ -1,10 +1,8 @@
 package co.com.wompi.api.utils;
 
 
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class SignatureUtils {
     public static String calcularFirmaIntegridad(String reference, int amountInCents, String currency,

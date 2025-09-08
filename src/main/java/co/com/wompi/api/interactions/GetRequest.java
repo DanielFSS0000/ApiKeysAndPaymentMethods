@@ -30,9 +30,10 @@ public class GetRequest implements Interaction {
     @Override
     @Subject("{0} El usuario obtiene urlBase: #baseUrl - segun su ambiente: #typeContent, y " +
             "consumen el servicio #request")
-    public <T extends Actor> void performAs(T actor) {String pathBaseUrl = EnvironmentSpecificConfiguration.from
-                    (environmentVariables)
-            .getProperty(baseUrl);
+    public <T extends Actor> void performAs(T actor) {
+        String pathBaseUrl = EnvironmentSpecificConfiguration.from
+                        (environmentVariables)
+                .getProperty(baseUrl);
         actor.whoCan(CallAnApi.at(pathBaseUrl));
         actor.attemptsTo(
                 //Get.resource para manejar el recurso o petición que se envia la uri
@@ -45,6 +46,7 @@ public class GetRequest implements Interaction {
         log.info(MESSAGE_GENERAL);
         SerenityRest.lastResponse().body().prettyPrint();
     }
+
     public static GetRequest params(String baseUrl, String request, String typeContent) {
         return Tasks.instrumented(GetRequest.class, baseUrl, request, typeContent);
     }

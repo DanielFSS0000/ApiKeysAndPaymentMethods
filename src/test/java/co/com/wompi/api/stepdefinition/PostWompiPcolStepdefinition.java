@@ -2,6 +2,7 @@ package co.com.wompi.api.stepdefinition;
 
 import co.com.wompi.api.models.PcolTransactionRequest;
 import co.com.wompi.api.tasks.post.CreateTransaction;
+import co.com.wompi.api.utils.AcceptanceTokenFetcher;
 import co.com.wompi.api.utils.Constants;
 import co.com.wompi.api.utils.ReferenceGenerator;
 import co.com.wompi.api.utils.SignatureUtils;
@@ -31,18 +32,14 @@ public class PostWompiPcolStepdefinition {
         String wompiBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
                 .getProperty(wompiBaseUrlKey);
 
-        String acceptanceToken = SerenityRest
-                .given()
-                .get(wompiBaseUrl + "merchants/" + Constants.PUBLIC_KEY_WOMPI)
-                .jsonPath()
-                .getString("data.presigned_acceptance.acceptance_token");
+        String token = AcceptanceTokenFetcher.fetch(environmentVariables);
 
         PcolTransactionRequest req = new PcolTransactionRequest();
         req.amount_in_cents = 1000000;
         req.currency = "COP";
         req.customer_email = "pruebasensandbox@yopmail.com";
         req.reference = ReferenceGenerator.randomNequiReference();
-        req.acceptance_token = acceptanceToken;
+        req.acceptance_token = token;
         req.payment_method = new PcolTransactionRequest.PaymentMethod();
         req.payment_method.sandbox_status = "APPROVED_ONLY_POINTS";
 

@@ -2,6 +2,7 @@
 package co.com.wompi.api.stepdefinition;
 
 import co.com.wompi.api.models.NequiTransactionRequest;
+import co.com.wompi.api.questions.TransactionStatus;
 import co.com.wompi.api.tasks.post.CreateTransaction;
 import co.com.wompi.api.utils.*;
 import io.cucumber.java.Before;
@@ -12,6 +13,7 @@ import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.thucydides.core.util.EnvironmentVariables;
+
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -51,13 +53,10 @@ public class PostWompiNequiStepdefinition {
     @Then("the response status should be {string}")
     public void responseStatusShouldPENDING(String expectedStatus) {
         OnStage.theActorInTheSpotlight().should(
-                seeThat(
-                        actor -> SerenityRest.lastResponse().jsonPath()
-                                .getString("data.status"),
-                        equalTo(expectedStatus)
-                )
+                seeThat(TransactionStatus.at("data.status"), equalTo(expectedStatus))
         );
     }
+
     @Then("after a few minutes the user validates the {string} status")
     public void theTransactionIsApproved(String expectedStatus) throws InterruptedException {
         String transactionId = SerenityRest.lastResponse().jsonPath().getString("data.id");

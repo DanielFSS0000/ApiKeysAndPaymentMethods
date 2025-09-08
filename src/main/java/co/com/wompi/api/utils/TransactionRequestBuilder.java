@@ -17,7 +17,7 @@ public final class TransactionRequestBuilder {
         req.amount_in_cents = amountInCents;
         req.currency = currency;
         req.customer_email = email;
-        req.reference = ReferenceGenerator.randomNequiReference();
+        req.reference = ReferenceGenerator.randomReference();
         req.acceptance_token = acceptanceToken;
         req.payment_method = new BancolombiaQRTransactionRequest.PaymentMethod();
         req.payment_method.payment_description = paymentDescription;
@@ -35,7 +35,7 @@ public final class TransactionRequestBuilder {
         req.amount_in_cents = amountInCents;
         req.currency = currency;
         req.customer_email = email;
-        req.reference = ReferenceGenerator.randomNequiReference();
+        req.reference = ReferenceGenerator.randomReference();
         req.acceptance_token = acceptanceToken;
         req.payment_method = new NequiTransactionRequest.PaymentMethod();
         req.payment_method.phone_number = phone;
@@ -53,7 +53,7 @@ public final class TransactionRequestBuilder {
         req.amount_in_cents = amountInCents;
         req.currency = currency;
         req.customer_email = email;
-        req.reference = ReferenceGenerator.randomNequiReference();
+        req.reference = ReferenceGenerator.randomReference();
         req.acceptance_token = acceptanceToken;
         req.payment_method = new PcolTransactionRequest.PaymentMethod();
         req.payment_method.sandbox_status = sandboxStatus;
@@ -71,7 +71,7 @@ public final class TransactionRequestBuilder {
         req.amount_in_cents = amountInCents;
         req.currency = currency;
         req.customer_email = email;
-        req.reference = ReferenceGenerator.randomNequiReference();
+        req.reference = ReferenceGenerator.randomReference();
         req.acceptance_token = acceptanceToken;
 
         req.payment_method = new PseTransactionRequest.PaymentMethod();

@@ -1,6 +1,7 @@
 package co.com.wompi.api.stepdefinition;
 
 import co.com.wompi.api.models.BancolombiaQRTransactionRequest;
+import co.com.wompi.api.questions.TransactionStatus;
 import co.com.wompi.api.tasks.post.CreateTransaction;
 import co.com.wompi.api.utils.*;
 import io.cucumber.java.Before;
@@ -47,13 +48,9 @@ public class PostWompiBancolombiaQRStepdefinition {
     }
 
     @Then("the QR response status should be {string}")
-    public void theResponseStatusShouldBe(String status) {
+    public void theResponseStatusShouldBe(String expectedStatus) {
         OnStage.theActorInTheSpotlight().should(
-                seeThat(
-                        actor -> SerenityRest.lastResponse().jsonPath()
-                                .getString("data.status"),
-                        equalTo(status)
-                )
+                seeThat(TransactionStatus.at("data.status"), equalTo(expectedStatus))
         );
     }
 

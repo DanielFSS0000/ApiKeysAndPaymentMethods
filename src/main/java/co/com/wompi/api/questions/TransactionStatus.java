@@ -5,14 +5,16 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 
 public class TransactionStatus implements Question<String> {
+    private final String path;
 
-    public static TransactionStatus status() {
-        return new TransactionStatus();
-    }
+    private TransactionStatus(String path){this.path = path;}
 
     @Override
     public String answeredBy(Actor actor) {
 
-        return SerenityRest.lastResponse().jsonPath().getString("data.status");
+        return SerenityRest.lastResponse().jsonPath().getString((path));
+    }
+    public static TransactionStatus at(String jsonPath){
+        return new TransactionStatus(jsonPath);
     }
 }

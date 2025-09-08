@@ -1,8 +1,11 @@
 package co.com.wompi.api.stepdefinition;
 
 import co.com.wompi.api.models.PseTransactionRequest;
+import co.com.wompi.api.questions.TransactionStatus;
 import co.com.wompi.api.tasks.post.CreateTransaction;
-import co.com.wompi.api.utils.*;
+import co.com.wompi.api.utils.AcceptanceTokenFetcher;
+import co.com.wompi.api.utils.Constants;
+import co.com.wompi.api.utils.TransactionRequestBuilder;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,7 +16,6 @@ import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.thucydides.core.util.EnvironmentVariables;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class PostWompiPseStepdefinition {
@@ -53,8 +55,9 @@ public class PostWompiPseStepdefinition {
 
     @Then("the PSE response status should be {string}")
     public void theResponseStatusShouldBePending(String expectedStatus) {
-        String actualReason = SerenityRest.lastResponse().jsonPath().getString("data.status");
-        assertThat(actualReason, equalTo(expectedStatus));
+        OnStage.theActorInTheSpotlight().should(
+                seeThat(TransactionStatus.at("data.status"), equalTo(expectedStatus))
+        );
     }
 
     @Then("the user waits a few minutes to validate the {string} status")

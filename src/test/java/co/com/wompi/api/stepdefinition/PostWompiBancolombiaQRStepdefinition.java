@@ -7,6 +7,7 @@ import co.com.wompi.api.utils.*;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.core.environment.EnvironmentSpecificConfiguration;
 import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.actors.OnStage;
@@ -16,6 +17,7 @@ import net.thucydides.core.util.EnvironmentVariables;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.Matchers.equalTo;
 
+@Slf4j
 public class PostWompiBancolombiaQRStepdefinition {
     private EnvironmentVariables environmentVariables;
 
@@ -30,9 +32,7 @@ public class PostWompiBancolombiaQRStepdefinition {
         String wompiBaseUrlKey = Constants.BASE_URL.replace(Constants.TYPE_ENVIRONMENT, "sandbox");
         String wompiBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
                 .getProperty(wompiBaseUrlKey);
-
         String token = AcceptanceTokenFetcher.fetch(environmentVariables);
-
         BancolombiaQRTransactionRequest req = TransactionRequestBuilder.bancolombiaQr(
                 token,
                 "pruebassandboxdaniel@yopmail.com",
@@ -76,8 +76,8 @@ public class PostWompiBancolombiaQRStepdefinition {
         String sandboxStatus = SerenityRest.lastResponse().jsonPath()
                 .getString("data.payment_method.sandbox_status");
 
-        System.out.println("BancolombiaQR ID Transaction: " + sandboxId);
-        System.out.println("BancolombiaQR Status: " + sandboxStatus);
+        log.info("BancolombiaQR ID Transaction: {} ", sandboxId);
+        log.info("BancolombiaQR Status: {} " , sandboxStatus);
 
         OnStage.theActorInTheSpotlight().should(
                 seeThat(

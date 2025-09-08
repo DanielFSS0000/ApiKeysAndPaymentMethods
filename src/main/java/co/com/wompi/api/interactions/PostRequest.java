@@ -1,5 +1,6 @@
 package co.com.wompi.api.interactions;
 
+import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Interaction;
@@ -7,12 +8,9 @@ import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.annotations.Subject;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
 import net.serenitybdd.screenplay.rest.interactions.Post;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class PostRequest implements Interaction {
-    private static final Logger log = LoggerFactory.getLogger(PostRequest.class);
-
     private final String baseUrl;
     private final String endpoint;
     private final String body;
@@ -23,12 +21,7 @@ public class PostRequest implements Interaction {
         this.endpoint = endpoint;
         this.body = body;
         this.bearerToken = bearerToken;
-        System.out.println("[Debug] BASE_URL usada: " + baseUrl);
-        System.out.println("[Debug] ENDPOINT usado: " + endpoint);
-        System.out.println("[Debug] JSON BODY: " + body);
-
     }
-
     @Override
     @Subject("{0} consume el servicio POST {#endpoint}")
     public <T extends Actor> void performAs(T actor) {
@@ -40,11 +33,15 @@ public class PostRequest implements Interaction {
                                 .header("Authorization", "Bearer " + bearerToken)
                                 .header("Content-Type", "application/json")
                                 .body(body)
+                                .relaxedHTTPSValidation()
                         )
         );
+        log.info("[Debug] BASE_URL usada: {}", baseUrl);
+        log.info("[Debug] ENDPOINT usado: {} ", endpoint);
+        log.info("[Debug] JSON BODY: {} ", body);
+        log.info("[Debug] JSON BODY: {} ", bearerToken);
         SerenityRest.lastResponse().prettyPrint();
     }
-
     public static PostRequest to(String baseUrl, String endpoint, String body, String bearerToken) {
         return Tasks.instrumented(PostRequest.class, baseUrl, endpoint, body, bearerToken);
     }

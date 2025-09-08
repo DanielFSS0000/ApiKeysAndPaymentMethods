@@ -1,10 +1,17 @@
 package co.com.wompi.api.utils;
 
+import java.util.Random;
+
 public class ReferenceGenerator {
 
-    // Genera una referencia random usando solo un número aleatorio de 6 dígitos
+    private static final Random RANDOM = new Random();
+
+    private ReferenceGenerator() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static String randomReference() {
-        int randomNum = (int) (Math.random() * 1000000);
-        return "reference" + randomNum;
+        int randomNum = RANDOM.nextInt(1000000);
+        return String.format("reference%06d", randomNum);
     }
 }

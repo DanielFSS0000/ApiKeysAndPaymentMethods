@@ -8,15 +8,16 @@ import co.com.wompi.api.utils.*;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.core.environment.EnvironmentSpecificConfiguration;
 import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.thucydides.core.util.EnvironmentVariables;
-
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.Matchers.equalTo;
 
+@Slf4j
 public class PostWompiNequiStepdefinition {
     private EnvironmentVariables environmentVariables;
 
@@ -41,7 +42,7 @@ public class PostWompiNequiStepdefinition {
                 "COP"
         );
 
-        System.out.println("[Debug] Cadena para firmar: " + req.reference + req.amount_in_cents + req.currency +
+        log.info("[Debug] Cadena para firmar: {}:{}:{};{} " , req.reference , req.amount_in_cents, req.currency,
                 Constants.INTEGRITY_KEY_WOMPI);
 
         OnStage.theActorCalled(Constants.ACTOR).attemptsTo(
@@ -76,8 +77,8 @@ public class PostWompiNequiStepdefinition {
         System.out.println("=== ESTADO FINAL DE LA TRANSACCIÓN NEQUI ===");
         String sandboxId = SerenityRest.lastResponse().jsonPath().getString("data.id");
         String sandboxStatus = SerenityRest.lastResponse().jsonPath().getString("data.status");
-        System.out.println("Nequi Id Transaction: " + sandboxId);
-        System.out.println("Nequi Status: " + sandboxStatus);
+        log.info("Nequi Id Transaction: {} " , sandboxId);
+        log.info("Nequi Status: {} ", sandboxStatus);
 
         OnStage.theActorInTheSpotlight().should(
                 seeThat(

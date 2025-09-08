@@ -9,6 +9,7 @@ import co.com.wompi.api.utils.TransactionRequestBuilder;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.core.environment.EnvironmentSpecificConfiguration;
 import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.actors.OnStage;
@@ -18,6 +19,7 @@ import net.thucydides.core.util.EnvironmentVariables;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.Matchers.equalTo;
 
+@Slf4j
 public class PostWompiPseStepdefinition {
 
     private EnvironmentVariables environmentVariables;
@@ -80,8 +82,8 @@ public class PostWompiPseStepdefinition {
         System.out.println("=== ESTADO DE LA TRANSACCIÓN PSE ===");
         String sandboxId = SerenityRest.lastResponse().jsonPath().getString("data.id");
         String sandboxStatus = SerenityRest.lastResponse().jsonPath().getString("data.status");
-        System.out.println("PSE Id Transaction: " + sandboxId);
-        System.out.println("PSE Status: " + sandboxStatus);
+        log.info("PSE Id Transaction: {} ", sandboxId);
+        log.info("PSE Status: {}", sandboxStatus);
 
         OnStage.theActorInTheSpotlight().should(
                 seeThat(

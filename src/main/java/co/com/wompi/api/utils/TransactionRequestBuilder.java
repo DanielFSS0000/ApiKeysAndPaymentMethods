@@ -79,7 +79,7 @@ public final class TransactionRequestBuilder {
         req.payment_method.user_type = userType;
         req.payment_method.user_legal_id_type = legalIdType;
         req.payment_method.user_legal_id = legalId;
-        req.payment_method.financial_institution_code = finInstitutionCode; // "1" approve, "2" decline (sandbox)
+        req.payment_method.financial_institution_code = finInstitutionCode;
         req.payment_method.payment_description = paymentDescription;
 
         req.signature = SignatureUtils.calcularFirmaIntegridad(

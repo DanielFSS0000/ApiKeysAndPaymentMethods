@@ -10,7 +10,4 @@ package co.com.wompi.api.utils;
         public static final String PUBLIC_KEY_WOMPI = "pub_stagtest_g2u0HQd3ZMh05hsSgTS2lUV8t3s4mOt7";
         public static final String PRIVATE_KEY_WOMPI = "prv_stagtest_5i0ZGIGiFcDQifYsXxvsny7Y37tKqFWg";
         public static final String INTEGRITY_KEY_WOMPI = "stagtest_integrity_nAIBuqayW70XpUqJS4qf4STYiISd89Fp";
-
-
-
     }

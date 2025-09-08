@@ -23,27 +23,24 @@ public class GetRequest implements Interaction {
         this.baseUrl = baseUrl;
         this.request = request;
         this.typeContent = typeContent;
-        System.out.println("[Debug] BASE_URL usada: " + baseUrl);
-        System.out.println("[Debug] JSON BODY: " + request);
     }
 
     @Override
     @Subject("{0} El usuario obtiene urlBase: #baseUrl - segun su ambiente: #typeContent, y " +
             "consumen el servicio #request")
     public <T extends Actor> void performAs(T actor) {
-        String pathBaseUrl = EnvironmentSpecificConfiguration.from
-                        (environmentVariables)
+        String pathBaseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
                 .getProperty(baseUrl);
         actor.whoCan(CallAnApi.at(pathBaseUrl));
         actor.attemptsTo(
-                //Get.resource para manejar el recurso o petición que se envia la uri
                 Get.resource(request)
-
                         .with(requestSpecification -> requestSpecification
                                 .accept(typeContent)
                                 .relaxedHTTPSValidation()
                         ));
         log.info(MESSAGE_GENERAL);
+        log.info("[Debug] BASE_URL usada: {}", baseUrl);
+        log.info("[Debug] JSON BODY: {}", request);
         SerenityRest.lastResponse().body().prettyPrint();
     }
 
